@@ -52,8 +52,8 @@
     </string-array>
 
     <string-array name="models_spinner_titles">
-        <item>Pose Landmarker Full</item>
+<!--        <item>Pose Landmarker Full</item>-->
         <item>Pose Landmarker Lite</item>
-        <item>Pose Landmarker Heavy</item>
+<!--        <item>Pose Landmarker Heavy</item>-->
     </string-array>
 </resources>
