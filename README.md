@@ -1,4 +1,4 @@
-# MediaPipe Tasks Pose Landmark Detection Android Demo
+# Android MediaPipe Pose Classifier
 
 A slightly modified version of MediaPipe Tasks Pose Landmark Detection Android Demo repo that I took and add in the function to classify poses using Neural Network.
 
