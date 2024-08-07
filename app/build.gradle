@@ -50,6 +50,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        mlModelBinding true
     }
 }
 
@@ -67,6 +68,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.fragment:fragment-ktx:1.5.4'
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-gpu:2.3.0'
 
     // Navigation library
     def nav_version = "2.5.3"
@@ -97,5 +100,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // MediaPipe Library
-    implementation 'com.google.mediapipe:tasks-vision:0.10.0'
+    implementation 'com.google.mediapipe:tasks-vision:0.20230731'
+
+    // Tensorflow
+    implementation 'org.tensorflow:tensorflow-lite:2.9.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
+
+
 }

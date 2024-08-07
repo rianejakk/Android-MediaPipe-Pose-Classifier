@@ -15,6 +15,7 @@
  */
 package com.google.mediapipe.examples.poselandmarker.fragment
 
+import com.google.mediapipe.examples.poselandmarker.TFLiteModel
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
@@ -35,9 +36,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
-import com.google.mediapipe.examples.poselandmarker.PoseLandmarkerHelper
-import com.google.mediapipe.examples.poselandmarker.MainViewModel
-import com.google.mediapipe.examples.poselandmarker.R
+import com.google.mediapipe.examples.poselandmarker.*
 import com.google.mediapipe.examples.poselandmarker.databinding.FragmentCameraBinding
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import java.util.Locale
@@ -50,12 +49,10 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     companion object {
         private const val TAG = "Pose Landmarker"
     }
-
+    private lateinit var poseClassifier: TFLiteModel
     private var _fragmentCameraBinding: FragmentCameraBinding? = null
-
     private val fragmentCameraBinding
         get() = _fragmentCameraBinding!!
-
     private lateinit var poseLandmarkerHelper: PoseLandmarkerHelper
     private val viewModel: MainViewModel by activityViewModels()
     private var preview: Preview? = null
@@ -110,6 +107,7 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
         backgroundExecutor.awaitTermination(
             Long.MAX_VALUE, TimeUnit.NANOSECONDS
         )
+        poseClassifier.shutdown()
     }
 
     override fun onCreateView(
@@ -126,6 +124,7 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
     @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        poseClassifier = TFLiteModel(requireContext())
 
         // Initialize our background executor
         backgroundExecutor = Executors.newSingleThreadExecutor()
@@ -148,7 +147,6 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                 poseLandmarkerHelperListener = this
             )
         }
-
         // Attach listeners to UI control widgets
         initBottomSheetControls()
     }
@@ -391,6 +389,11 @@ class CameraFragment : Fragment(), PoseLandmarkerHelper.LandmarkerListener {
                     resultBundle.inputImageWidth,
                     RunningMode.LIVE_STREAM
                 )
+                val landmarks = resultBundle.results.first()
+                val classificationResult = poseClassifier.classify(landmarks)
+                println(classificationResult)
+
+                fragmentCameraBinding.resultTextView.text = classificationResult
 
                 // Force a redraw
                 fragmentCameraBinding.overlay.invalidate()

@@ -16,6 +16,7 @@
 package com.google.mediapipe.examples.poselandmarker
 
 import android.content.Context
+import android.content.res.AssetManager
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.media.MediaMetadataRetriever
@@ -83,9 +84,7 @@ class PoseLandmarkerHelper(
 
         val modelName =
             when (currentModel) {
-//                MODEL_POSE_LANDMARKER_FULL -> "pose_landmarker_full.task"
                 MODEL_POSE_LANDMARKER_LITE -> "pose_landmarker_lite.task"
-//                MODEL_POSE_LANDMARKER_HEAVY -> "pose_landmarker_heavy.task"
                 else -> "pose_landmarker_lite.task"
             }
 
@@ -363,7 +362,6 @@ class PoseLandmarkerHelper(
 
     companion object {
         const val TAG = "PoseLandmarkerHelper"
-
         const val DELEGATE_CPU = 0
         const val DELEGATE_GPU = 1
         const val DEFAULT_POSE_DETECTION_CONFIDENCE = 0.5F
@@ -372,9 +370,7 @@ class PoseLandmarkerHelper(
         const val DEFAULT_NUM_POSES = 1
         const val OTHER_ERROR = 0
         const val GPU_ERROR = 1
-//        const val MODEL_POSE_LANDMARKER_FULL = 0
         const val MODEL_POSE_LANDMARKER_LITE = 0
-//        const val MODEL_POSE_LANDMARKER_HEAVY = 2
     }
 
     data class ResultBundle(
@@ -385,6 +381,7 @@ class PoseLandmarkerHelper(
     )
 
     interface LandmarkerListener {
+
         fun onError(error: String, errorCode: Int = OTHER_ERROR)
         fun onResults(resultBundle: ResultBundle)
     }

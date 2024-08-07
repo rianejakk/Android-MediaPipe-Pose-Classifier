@@ -18,9 +18,8 @@ package com.google.mediapipe.examples.poselandmarker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import com.google.mediapipe.examples.poselandmarker.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -32,13 +31,9 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
-//        val navController = navHostFragment.navController
-//        activityMainBinding.navigation.setupWithNavController(navController)
-//        activityMainBinding.navigation.setOnNavigationItemReselectedListener {
-//            // ignore the reselection
-//        }
+        val overlayView = findViewById<OverlayView>(R.id.overlay)
+        val resultTextView = findViewById<TextView>(R.id.resultTextView)
+
     }
 
     override fun onBackPressed() {

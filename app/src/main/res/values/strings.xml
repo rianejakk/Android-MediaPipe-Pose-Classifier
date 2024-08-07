@@ -15,7 +15,7 @@
     ~ limitations under the License.
 -->
 <resources>
-    <string name="app_name">Pose Landmarker</string>
+    <string name="app_name">Deteksi Pose Duduk</string>
 
     <string name="media_pipe">MediaPipe</string>
 
